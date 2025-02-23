@@ -1,4 +1,5 @@
 const taskInput = document.getElementById('taskInput');
+const deadlineInput = document.getElementById('deadlineInput');
 const addButton = document.getElementById('addButton');
 const taskList = document.getElementById('taskList');
 
@@ -13,10 +14,16 @@ taskInput.addEventListener('keypress', function (e) {
 
 function addTask() {
   const task = taskInput.value;
-  if (task === '') return;  
+  const deadline = deadlineInput.value;
+  if (task === '' || deadline === '') return;  
   
   const li = document.createElement('li');
-  li.textContent = task;
+  li.innerHTML = `<span class="text">${task}</span>`;
+ 
+  const deadLineSpan = document.createElement('span');
+  deadLineSpan.classList.add('deadline');
+  deadLineSpan.textContent = `Deadline: ${FormatDeadline(deadline)}`;
+  li.appendChild(deadLineSpan);
 
   li.addEventListener('click', function() {
     li.classList.toggle('completed');
@@ -37,11 +44,17 @@ function addTask() {
   saveTasks();
 }
 
+function FormatDeadline(deadline) {
+  const date = new Date(deadline);
+  return date.toLocaleString();
+}
+
 function saveTasks() {
   const tasks = [];
   document.querySelectorAll('#taskList li').forEach(li => {
     tasks.push({
-      text: li.firstChild.textContent,
+      text: li.querySelector('.text').textContent,
+      deadline: li.querySelector('.deadline').textContent.replace('Deadline: ', '').replace(')', ''), 
       completed: li.classList.contains('completed')
     });
   });
@@ -52,12 +65,17 @@ function loadTasks() {
   const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
   savedTasks.forEach(task => {
     const li = document.createElement('li');
-    li.textContent = task.text;
+    li.innerHTML = `<span class="text">${task.text}</span>`;
     if (task.completed) li.classList.add('completed');
     li.addEventListener('click', () => {
       li.classList.toggle('completed');
       saveTasks();
     });
+
+    const deadLineSpan = document.createElement('span');
+    deadLineSpan.classList.add('deadline');
+    deadLineSpan.textContent = `Deadline: ${task.deadline}`;
+    li.appendChild(deadLineSpan);
 
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
