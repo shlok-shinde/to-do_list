@@ -101,6 +101,7 @@ li:hover {
   transform: scale(1.02);
   transition: transform 1s, box-shadow 1s;
   animation: backgroundchange 0.75s;
+  background-color: #005effdf;
 }
 
 
