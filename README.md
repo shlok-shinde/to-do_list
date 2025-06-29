@@ -45,7 +45,3 @@ A simple and aesthetic to-do list application with a dark theme.
 ├── script.js
 └── README.md
 ```
-
-## License
-
-This project is licensed under the MIT License.
