@@ -1,6 +1,8 @@
 # To-Do List
 
 A simple and aesthetic to-do list application with a dark theme.
+<img width="1853" height="845" alt="image" src="https://github.com/user-attachments/assets/ee5564ae-67f9-4dbe-8e27-8af967467458" />
+
 
 ## Features
 
